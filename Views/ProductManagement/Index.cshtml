@@ -99,6 +99,7 @@
                                     <td class="filterable-cell">@column.status</td>
                                     <td class="filterable-cell">@column.column_type</td>
                                     <td class="filterable-cell">@column.battery_id</td>
+                                    <td><a href="@Url.Action("Intervention", "Home", new { column_id = column.id, battery_id = column.battery_id })">Edit</a></td>
                                 </tr>
                             }
                         </tbody>
@@ -140,6 +141,7 @@
                                     <td class="filterable-cell">@elevator.model</td>
                                     <td class="filterable-cell">@elevator.elevator_type</td>
                                     <td class="filterable-cell">@elevator.column_id</td>
+                                    <td><a href="@Url.Action("Intervention", "Home", new { elevator_id = elevator.id, column_id = elevator.column_id, elevatorSerialNumber = elevator.serial_number })">Edit</a></td>
                                 </tr>
                             }
 
