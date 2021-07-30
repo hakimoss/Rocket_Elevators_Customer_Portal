@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "RTcj+ITQnsdAie+Itto/PSrH09AzxAnahLB2E8F6UYJyYVQL5q8z/eFRnUh7FZYpb9vzgJZdu60Sakqjv0q7cA==",
+  "dgSpecHash": "SK2fn5eSAPHvsasUfUHIUTOayr6YQY4C94/IKO/jamcnSz1avNZVxiMIOK+rg2RxkmwrSusQmWwPbtjtwNi3gA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Hakim\\Desktop\\inter\\Rocket_Elevators_Customer_Portal\\Customer_Portal.csproj",
+  "projectFilePath": "C:\\Users\\Hakim\\Desktop\\final_week11\\Rocket_Elevators_Customer_Portal\\Customer_Portal.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Hakim\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Hakim\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\5.0.7\\microsoft.aspnetcore.cryptography.internal.5.0.7.nupkg.sha512",

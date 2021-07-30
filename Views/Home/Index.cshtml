@@ -1,8 +1,13 @@
-﻿@page
+﻿@using Microsoft.AspNetCore.Identity
+@using Customer_Portal.Areas.Identity.Data
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 @model Customer_Portal.Pages.IndexModel
 @{
     Layout = null;
 }
+@* @page *@
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,6 +16,7 @@
 		<title>Rocket Elevator</title>
 		<meta name="description" content="" />
 		<meta name="Author" content="Dorin Grigoras [www.stepofweb.com]" />
+		<link rel="icon" href="images/icon-page.png">
 
 		<!-- mobile settings -->
 		<meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
@@ -130,29 +136,32 @@
 								-->
 								<ul id="topMain" class="nav nav-pills nav-main">
 									<li class="dropdown active"><!-- HOME -->
-										<a asp-action="">
-											Home
-										</a>
+										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">
+                                            Home
+                                        </a>
 										
 									<li class="dropdown"><!-- PAGES -->
-										<a href="/ProductManagement">
-											Product management
-										</a>
+										<a class="nav-link text-dark" asp-area="" asp-controller="ProductManagement" asp-action="Index">
+                                            My Products
+                                        </a>
 										
 									</li>
 									<li class="dropdown mega-menu"><!-- PORTFOLIO -->
-										<a href="/Home/Intervention">
-											Intervention request
-										</a>
-									
+										<a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Intervention">
+                                            Request Intervention
+                                        </a>
 									</li>
-                                    <li>
-                                        <form id="logoutForm" class="dropdown" action="/Identity/Account/Logout?returnUrl=%2F" method="post">
-                                            <button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
-                                            <input name="__RequestVerificationToken" type="hidden" value="CfDJ8IaoahXMx75Lnt-aMQa-XokGXpD-7T7-7rfzso02DPneBRTkbNStZBhvxmHNL0Gnfe1ZrWoIdIql-KAESY9tE70pKgRsixtFMwNj4rRGTGblyG9VALhWLSSPBBboshvTeM0N5bQWjRWOJdSK9rGGM1mbMJS7epJk60EMQ89JpOJzVbGDGf9QPUhrfHGPzxcW_g">
-                                        </form>
+									<li>
+										<a id="logout" type="submit" class="nav-link text-dark" onclick="location.href='@Url.Action("UpdateCustomer", "Home")';return false;">Update my info</a>
+									</li>
+									<li class="nav-item">
+										<a id="manage" class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">@UserManager.GetUserName(User)</a>
                                     </li>
-							
+                                    <li>
+                                        <form id="logoutForm" class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
+											<button id="logout" type="submit" class="nav-link btn btn-link text-dark">Logout</button>
+										</form>
+                                    </li>
 
 
 
@@ -234,82 +243,7 @@
 
 
 
-			<!-- -->
-			<section>
-				<div class="container">
-
-					<!-- FEATURED BOXES 3 -->
-					<div class="row">
-						<div class="col-md-3 col-6 mb-30">
-							<div class="text-center">
-								<i class="ico-light ico-lg ico-rounded ico-hover et-circle-compass"></i>
-								<h4>Design</h4>
-								<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus.</p>
-							</div>
-						</div>
-
-						<div class="col-md-3 col-6 mb-30">
-							<div class="text-center">
-								<i class="ico-light ico-lg ico-rounded ico-hover et-piechart"></i>
-								<h4>Analytics</h4>
-								<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus.</p>
-							</div>
-						</div>
-
-						<div class="col-md-3 col-6 mb-30">
-							<div class="text-center">
-								<i class="ico-light ico-lg ico-rounded ico-hover et-strategy"></i>
-								<h4>Development</h4>
-								<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus.</p>
-							</div>
-						</div>
-
-						<div class="col-md-3 col-6 mb-30">
-							<div class="text-center">
-								<i class="ico-light ico-lg ico-rounded ico-hover et-streetsign"></i>
-								<h4>Marketing</h4>
-								<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus. </p>
-							</div>
-						</div>
-
-						<div class="col-md-3 col-6 mb-30">
-							<div class="text-center">
-								<i class="ico-light ico-lg ico-rounded ico-hover et-bargraph"></i>
-								<h4>Statistics</h4>
-								<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus.</p>
-							</div>
-						</div>
-
-						<div class="col-md-3 col-6 mb-30">
-							<div class="text-center">
-								<i class="ico-light ico-lg ico-rounded ico-hover et-trophy"></i>
-								<h4>Winners</h4>
-								<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus.</p>
-							</div>
-						</div>
-
-						<div class="col-md-3 col-6 mb-30">
-							<div class="text-center">
-								<i class="ico-light ico-lg ico-rounded ico-hover et-profile-female"></i>
-								<h4>Clients</h4>
-								<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus.</p>
-							</div>
-						</div>
-
-						<div class="col-md-3 col-6 mb-30">
-							<div class="text-center">
-								<i class="ico-light ico-lg ico-rounded ico-hover et-heart"></i>
-								<h4>Favourite</h4>
-								<p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus. </p>
-							</div>
-						</div>
-					</div>
-					<!-- /FEATURED BOXES 3 -->
-
-				</div>
-			</section>
-			<!-- / -->
-
+			
 
 
 			<!-- CALLOUT -->
@@ -327,7 +261,7 @@
 
 						
 						<div class="col-md-3 col-sm-12 text-right"><!-- right btn -->
-							<a href="page-services-1.html" class="btn btn-3d btn-teal btn-lg fs-16">OUR SERVICES</a>
+							<a href="http://www.abdelhakimantar.com/" class="btn btn-3d btn-teal btn-lg fs-16">OUR SERVICES</a>
 						</div><!-- /right btn -->
 
 					</div>
@@ -412,7 +346,7 @@
 				.box-gray
 				.box-teal
 			-->
-			<div class="row box-gradient box-teal">
+			<div class="row box-gradient box-teal d-flex justify-content-around" style="background-color:#648285;">
 				<div class="col-6 col-sm-3">
 					<i class="fa fa-child fa-4x"></i>
 					<h2 class="countTo font-raleway" data-speed="3000">8165</h2>
@@ -428,14 +362,9 @@
 				<div class="col-6 col-sm-3">
 					<i class="fa fa-heart fa-4x"></i>
 					<h2 class="countTo font-raleway" data-speed="3000">24567</h2>
-					<p>MASSAGES</p>
+					<p>GOOD REPORT</p>
 				</div>
 
-				<div class="col-6 col-sm-3">
-					<i class="fa fa-female fa-4x"></i>
-					<h2 class="countTo font-raleway" data-speed="3000">68</h2>
-					<p>MOTHERS TO BE</p>
-				</div>
 			</div>
 
 
@@ -453,21 +382,21 @@
 							<div class="toggle toggle-accordion toggle-transparent toggle-bordered-full">
 
 								<div class="toggle active">
-									<label>Lorem ipsum dolor.</label>
+									<label>A committed team</label>
 									<div class="toggle-content">
 										<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
 									</div>
 								</div>
 
 								<div class="toggle">
-									<label>Sit amet, consectetur.</label>
+									<label>A professional work</label>
 									<div class="toggle-content">
 										<p>Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc.</p>
 									</div>
 								</div>
 
 								<div class="toggle">
-									<label>Consectetur adipiscing elit.</label>
+									<label>Original and practical designers</label>
 									<div class="toggle-content">
 										<p>Ut enim massa, sodales tempor convallis et, iaculis ac massa.</p>
 									</div>
@@ -490,14 +419,6 @@
 							</div>
 
 							<label>
-								<span class="float-right">88%</span>
-								SALES
-							</label>
-							<div class="progress progress-xxs">
-								<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 88%; min-width: 2em;"></div>
-							</div>
-
-							<label>
 								<span class="float-right">93%</span>
 								DESIGN
 							</label>
@@ -507,7 +428,7 @@
 
 							<label>
 								<span class="float-right">77%</span>
-								DEVELOPMENT
+								MAINTENANCE
 							</label>
 							<div class="progress progress-xxs">
 								<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 77%; min-width: 2em;"></div>
@@ -515,7 +436,7 @@
 
 							<label>
 								<span class="float-right">99%</span>
-								OTHER
+								MECHANICAL
 							</label>
 							<div class="progress progress-xxs">
 								<div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 99%; min-width: 2em;"></div>
@@ -535,8 +456,8 @@
 									</a>
 								</div>
 								<div class="col-md-10 col-sm-10 col-10">
-									<a href="blog-sidebar-left.html" class="tab-post-link">Maecenas metus nulla</a>
-									<small>June 29 2014</small>
+									<a href="blog-sidebar-left.html" class="tab-post-link">A job beyond my expectations</a>
+									<small>June 29 2019</small>
 								</div>
 							</div><!-- /post -->
 
@@ -547,7 +468,7 @@
 									</a>
 								</div>
 								<div class="col-md-10 col-sm-10 col-10">
-									<a href="blog-sidebar-left.html" class="tab-post-link">Curabitur pellentesque neque eget</a>
+									<a href="blog-sidebar-left.html" class="tab-post-link">A team that frowns on excelence</a>
 									<small>June 29 2014</small>
 								</div>
 							</div><!-- /post -->
@@ -559,7 +480,7 @@
 									</a>
 								</div>
 								<div class="col-md-10 col-sm-10 col-10">
-									<a href="blog-sidebar-left.html" class="tab-post-link">Nam et lacus neque. Ut enim massa</a>
+									<a href="blog-sidebar-left.html" class="tab-post-link">Exceptional quality/price</a>
 									<small>June 29 2014</small>
 								</div>
 							</div><!-- /post -->
@@ -577,116 +498,47 @@
 			<footer id="footer">
 				<div class="container">
 
+
 					<div class="row">
-						
-						<div class="col-md-3">
-							<!-- Footer Logo -->
-							<img class="footer-logo" src="images/R2.png" alt="" style="width:60%"/>
+
+						<!-- col #1 -->
+						<div class="col-md-8">
+
+							<h3 class="letter-spacing-1">WHY US?</h3>
 
 							<!-- Small Description -->
-							<p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
+							<p>
+								We have the conviction that we create the most innovative and reliable products on the market. Contact us today for any questions you might have.
 
-							<!-- Contact Address -->
-							<address>
-								<ul class="list-unstyled">
-									<li class="footer-sprite address">
-										PO Box 21132<br>
-										Here Weare St, Melbourne<br>
-										Vivas 2355 Australia<br>
-									</li>
-									<li class="footer-sprite phone">
-										Phone: 1-800-565-2390
-									</li>
-									<li class="footer-sprite email">
-										<a href="mailto:support@yourname.com">support@yourname.com</a>
-									</li>
-								</ul>
-							</address>
-							<!-- /Contact Address -->
-
+							</p>
+							<h2>(418) 555-1234</h2>
 						</div>
+						<!-- /col #1 -->
 
-						<div class="col-md-3">
-
-							<!-- Latest Blog Post -->
-							<h4 class="letter-spacing-1">LATEST NEWS</h4>
-							<ul class="footer-posts list-unstyled">
-								<li>
-									<a href="#">Donec sed odio dui. Nulla vitae elit libero, a pharetra augue</a>
-									<small>29 June 2017</small>
-								</li>
-								<li>
-									<a href="#">Nullam id dolor id nibh ultricies</a>
-									<small>29 June 2017</small>
-								</li>
-								<li>
-									<a href="#">Duis mollis, est non commodo luctus</a>
-									<small>29 June 2017</small>
-								</li>
-							</ul>
-							<!-- /Latest Blog Post -->
-
-						</div>
-
-						<div class="col-md-2">
-
-							<!-- Links -->
-							
-							<!-- /Links -->
-
-						</div>
-
+						<!-- col #2 -->
 						<div class="col-md-4">
+							<h3 class="letter-spacing-1">KEEP IN TOUCH</h3>
 
 							<!-- Newsletter Form -->
-							<h4 class="letter-spacing-1">KEEP IN TOUCH</h4>
-							<p>Subscribe to Our Newsletter to get Important News &amp; Offers</p>
+							<p>Subscribe to Our Newsletter to get Important News & Offers</p>
 
 							<form class="validate" action="php/newsletter.php" method="post" data-success="Subscribed! Thank you!" data-toastr-position="bottom-right">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-envelope"></i></span>
 									<input type="email" id="email" name="email" class="form-control required" placeholder="Enter your Email">
 									<span class="input-group-btn">
-										<button class="btn btn-success" type="submit">Subscribe</button>
+										<button class="growHover btn btn-blue" type="submit">Subscribe</button>
 									</span>
 								</div>
 							</form>
 							<!-- /Newsletter Form -->
 
-							<!-- Social Icons -->
-							<div class="mt-20">
-								<a href="#" class="social-icon social-icon-border social-facebook float-left" data-toggle="tooltip" data-placement="top" title="Facebook">
-
-									<i class="icon-facebook"></i>
-									<i class="icon-facebook"></i>
-								</a>
-
-								<a href="#" class="social-icon social-icon-border social-twitter float-left" data-toggle="tooltip" data-placement="top" title="Twitter">
-									<i class="icon-twitter"></i>
-									<i class="icon-twitter"></i>
-								</a>
-
-								<a href="#" class="social-icon social-icon-border social-gplus float-left" data-toggle="tooltip" data-placement="top" title="Google plus">
-									<i class="icon-gplus"></i>
-									<i class="icon-gplus"></i>
-								</a>
-
-								<a href="#" class="social-icon social-icon-border social-linkedin float-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
-									<i class="icon-linkedin"></i>
-									<i class="icon-linkedin"></i>
-								</a>
-
-								<a href="#" class="social-icon social-icon-border social-rss float-left" data-toggle="tooltip" data-placement="top" title="Rss">
-									<i class="icon-rss"></i>
-									<i class="icon-rss"></i>
-								</a>
-					
-							</div>
-							<!-- /Social Icons -->
 
 						</div>
+						<!-- /col #2 -->
 
 					</div>
+
 
 				</div>
 
@@ -700,6 +552,7 @@
 						&copy; All Rights Reserved, Company LTD
 					</div>
 				</div>
+
 			</footer>
 			<!-- /FOOTER -->
 
@@ -708,7 +561,7 @@
 
 
 		<!-- SCROLL TO TOP -->
-		<a href="#" id="toTop"></a>
+		<a href="#" id="toTop" style="margin-right:100px;margin-bottom:20px;"></a>
 
 
 		<!-- PRELOADER -->
@@ -741,32 +594,3 @@
 	</body>
 </html>
 
-
-
-@* 
-@{
-    ViewData["Title"] = "Home Page";
-}
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
-
-
-<div class="container" style="padding-top: 100px; text-align: center">
-    <div class="row">
-        <div class="col-md-4">  
-            <button class="btn btn-outline-danger" id="" style="height: 100px; width: 80%" onclick="location.href='@Url.Action("Index", "ProductManagement")';return false;">MY PRODUCTS</button>
-            <br /><br />
-        </div>
-        <div class="col-md-4">
-            <button class="btn btn-outline-danger" id="" style="height: 100px; width: 80%" onclick="location.href='@Url.Action("Intervention", "Home")';return false;">REQUEST INTERVENTION</button>
-            <br /><br />
-        </div>
-        <div class="col-md-4">
-            <button class="btn btn-outline-danger" id="" style="height: 100px; width: 80%" onclick="location.href='@Url.Action("UpdateCustomer", "Home")';return false;">UPDATE MY INFO</button>
-            <br /><br />
-        </div>
-    </div>
-</div> *@

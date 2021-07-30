@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Hakim\\Desktop\\inter\\Rocket_Elevators_Customer_Portal\\Customer_Portal.csproj": {}
+    "C:\\Users\\Hakim\\Desktop\\final_week11\\Rocket_Elevators_Customer_Portal\\Customer_Portal.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Hakim\\Desktop\\inter\\Rocket_Elevators_Customer_Portal\\Customer_Portal.csproj": {
+    "C:\\Users\\Hakim\\Desktop\\final_week11\\Rocket_Elevators_Customer_Portal\\Customer_Portal.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Hakim\\Desktop\\inter\\Rocket_Elevators_Customer_Portal\\Customer_Portal.csproj",
+        "projectUniqueName": "C:\\Users\\Hakim\\Desktop\\final_week11\\Rocket_Elevators_Customer_Portal\\Customer_Portal.csproj",
         "projectName": "Customer_Portal",
-        "projectPath": "C:\\Users\\Hakim\\Desktop\\inter\\Rocket_Elevators_Customer_Portal\\Customer_Portal.csproj",
+        "projectPath": "C:\\Users\\Hakim\\Desktop\\final_week11\\Rocket_Elevators_Customer_Portal\\Customer_Portal.csproj",
         "packagesPath": "C:\\Users\\Hakim\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Hakim\\Desktop\\inter\\Rocket_Elevators_Customer_Portal\\obj\\",
+        "outputPath": "C:\\Users\\Hakim\\Desktop\\final_week11\\Rocket_Elevators_Customer_Portal\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Hakim\\AppData\\Roaming\\NuGet\\NuGet.Config"
