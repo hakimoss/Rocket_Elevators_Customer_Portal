@@ -1,0 +1,232 @@
+@using Microsoft.AspNetCore.Identity
+@using Customer_Portal.Areas.Identity.Data
+
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@model Intervention
+@{
+    ViewData["Title"] = "Intervention";
+}
+@* <script src="../lib/jquery/dist/jquery-3.3.1.min.js"></script> *@
+<script src="~/js/jquery-3.5.1.min.js"></script>
+<div class="text-center">
+    <h1 class="display-4">Intervention Form</h1>
+    <p></p>
+</div>
+<!-- ************************************* USE OF JAVASCRIPT FOR THE DYNAMIC DROPDOWNS ************************************* -->
+<script>
+ 
+  $( document ).ready(function() {
+    // console.log( "Its working" );
+
+
+    customer1 = $("#customer_name");
+    building1 = $('#building_dropdown');
+    battery1 = $('#battery_dropdown');
+    column1 = $('#column_dropdown');
+    elevator1 = $('#elevator_dropdown');
+
+    @* building1.css("visibility", "hidden"); *@
+    battery1.css("visibility", "hidden");
+    column1.css("visibility", "hidden");
+    elevator1.css("visibility", "hidden");
+
+    var email = "@User.Identity.Name"
+    console.log(email)
+    $.get(`https://rocket-elevators-rest-api-code.herokuapp.com/api/Customers/${email}`, function(result) {
+       console.log(result)
+       var author_n_customer_id = result[0].id
+       $('#customer_name').val(author_n_customer_id)
+       console.log(result[0].id)
+       $('#author_id').val(author_n_customer_id)
+       console.log(author_n_customer_id)
+       
+    })
+
+    $("#customer_name").click(function() {
+      
+      if(customer1 == ''){
+         
+      }else{
+        
+        building1.css("visibility", "visible");
+        battery1.css("visibility", "hidden");
+        column1.css("visibility", "hidden");
+        elevator1.css("visibility", "hidden");
+      }
+      var selected_customer_id = $(this).val();
+      $.get(`https://rocket-elevators-rest-api-code.herokuapp.com/api/Buildings/${selected_customer_id}`, function(result) {
+        console.log("==============")
+        console.log(selected_customer_id)
+        console.log("==============")
+        var buildings = result["buildings"];
+        $("#building_dropdown").empty();
+        $("#building_dropdown").append('<option value="">None</option>');
+
+        $.each(result, function(i, j) {
+          var row = '<option value="' + j.id + '">' + j.id + '</option>';
+          $(row).appendTo("#building_dropdown")
+        });
+      });
+    });
+
+  
+  $("#building_dropdown").change(function() {
+      if(building1 == ''){
+        
+        
+      }else{
+        battery1.css("visibility", "visible");
+        column1.css("visibility", "hidden");
+        elevator1.css("visibility", "hidden");
+      }
+      var selected_building_id = $(this).val();
+      $.get(`https://rocket-elevators-rest-api-code.herokuapp.com/api/Batteries/${selected_building_id}`, function(result) {
+        $("#battery_dropdown").empty();
+        $("#battery_dropdown").append('<option value="">None</option>');
+        $.each(result, function(i, j) {
+          var row = '<option value="' + j.id + '">' + j.id + '</option>';
+          $(row).appendTo("#battery_dropdown")
+        });
+      });
+    });
+
+
+  $("#battery_dropdown").change(function() {
+      if(battery1 == ''){
+
+      }else{
+       column1.css("visibility", "visible");
+       elevator1.css("visibility", "hidden");
+      }
+      var selected_battery_id = $(this).val();
+      $.get(`https://rocket-elevators-rest-api-code.herokuapp.com/api/Columns/${selected_battery_id}`, function(result) {
+        $("#column_dropdown").empty();
+        $("#column_dropdown").append('<option value="">None</option>');
+        $.each(result, function(i, j) {
+          var row = '<option value="' + j.id + '">' + j.id + '</option>';
+          $(row).appendTo("#column_dropdown")
+        });
+      });
+    });
+  $("#column_dropdown").change(function() {
+      if(column1 == ''){
+       
+      }else{
+        elevator1.css("visibility", "visible");
+      }
+      var selected_column_id = $(this).val();
+      $.get(`https://rocket-elevators-rest-api-code.herokuapp.com/api/Elevators/${selected_column_id}`, function(result) {
+        $("#elevator_dropdown").empty();
+        $("#elevator_dropdown").append('<option value="">None</option>');
+        $.each(result, function(i, h) {
+          var row = '<option value="' + h.id + '">' + h.id + '</option>';
+          $(row).appendTo("#elevator_dropdown")
+        });
+      });
+    });
+    
+});
+function createIntervention() {
+    var lol = JSON.stringify( {
+        author_id: parseInt($('#author_id').val()),
+        customer_id: parseInt($('#customer_name').val()),
+        building_id: parseInt($('#building_dropdown').val()),
+        battery_id: parseInt($('#battery_dropdown').val()),
+        column_id: parseInt($('#column_dropdown').val()),
+        elevator_id: parseInt($('#elevator_dropdown').val()),
+        report: $('#report').val()
+    });
+    $.ajax({
+        //url: 'http://localhost:5000/api/Interventions',
+        url: 'https://rocket-elevators-rest-api-code.herokuapp.com/api/Intervention',
+        type: 'POST',
+        data: lol,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        success: function (result) {
+            alert('Intervention created successfully!');
+            return false;
+        }
+    });
+    return false;
+}
+@* form.addEventListener('submit', (event) =>{
+  event.preventDefault();
+  var my_json = JSON.stringify(
+        author_id: parseInt($('#author_id').val()),
+        customer_id: parseInt($('#customer_Id').val()),
+        building_id: parseInt($('#building_dropdown').val()),
+        battery_id: parseInt($('#battery_dropdown').val()),
+        column_id: parseInt($('#column_dropdown').val()),
+        elevator_id: parseInt($('#elevator_dropdown').val()),
+        report: $('#report').val()
+  )
+  fetch()
+}); *@
+
+
+
+</script>
+<form onsubmit="return createIntervention()" id="interventionForm">
+    <div id="quote_form" class="container">
+        <div class="row">
+            <div id="typeChoice" class="col-md-12 form-group">
+                <!-- *********************************************** DYNAMIC DROPDOWNS *********************************************** -->
+                                
+                
+                <input id="author_id" style="display: none;" name="author_id" value="">
+                <input style="display: none;" type="hidden" id="author_id" name="author_id" value="" readonly>
+                <br />
+                <!-- ------------ DropDown Selector listing all customers ----------------------------------------------- -->
+                <label for="customer_name">Customer:</label>
+                <input required type="text" id="customer_name" name="customer_name" class="form-control" value="" readonly>
+                <input type="hidden" id="customer_Id" name="customer_Id" value="">
+                <br />
+
+                <!-- ------------ DropDown Selector listing all buildings belonging to the selected customer ------------ -->
+                <label id="building_id">Building:</label>
+
+                <select required id="building_dropdown" name="building_id" class="form-control">
+                    <option value="">Please select</option>
+                </select>
+                <br />
+
+                <!-- ------------ DropDown Selector listing all batteries belonging to the selected building ------------ -->
+                <label id="battery_id">Battery:</label>
+                <select required id="battery_dropdown" name="battery_id" class="form-control">
+                    <option value="">Please select</option>
+                </select>
+                <br />
+
+                <!-- ------------ DropDown Selector listing all columns belonging to the selected battery --------------- -->
+                <label id="column_id">Column:</label>
+                <select id="column_dropdown" name="column_id" class="form-control">
+                    <option value="">None</option>
+                </select>
+                <br />
+
+                <!-- ------------ DropDown Selector listing all elevators belonging to the selected column -------------- -->
+                <label id="elevator_id">Elevator:</label>
+                <select id="elevator_dropdown" name="elevator_id" class="form-control">
+                    <option value="">None</option>
+                </select>
+                <br />
+
+                <!-- ------------ Description --------------------------------------------------------------------------- -->
+                <label for="project_description">Project Description</label>
+                <input required type="text" value="" class="form-control" name="report" id="report">
+                <br />
+
+                <div class="row">
+                    <!--submit-->
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-primary" id="btnIntervention"><i class="fa fa-check"></i> SUBMIT INTERVENTION</button>
+                        <br /><br />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

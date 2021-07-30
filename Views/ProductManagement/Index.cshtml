@@ -1,0 +1,153 @@
+@model ProductService
+@{
+
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Products";
+    var batt = ViewBag.batteries;
+    var col = ViewBag.columns;
+    var el = ViewBag.elevators;
+    var i = ViewBag.interventions;
+
+}
+
+<section id="slider" class="halfheight m-0" >
+
+
+    <div class="display-table">
+        <div class="display-table-cell vertical-align-middle">
+
+            <div class="container text-center">
+
+                <h1 class="fw-600 mt-30 mb-3 wow fadeIn" data-wow-delay="0.6s">Product <span>Management</span></h1>
+            </div>
+
+        </div>
+    </div>
+    <span class="raster overlay dark-3 z-index-0"><!-- dark|light overlay [0 to 9 opacity] --></span>
+</section>
+
+<section>
+    <!-- Welcome -->
+
+    <div class="container">
+        <div id="accordion" role="tablist">
+
+            <div class="card">
+                <div class="card-header" role="tab" id="headingOne">
+                    <h5 class="mb-0">
+                        <a data-toggle="collapse" href="#collapseOne" role="button" aria-expanded="true" aria-controls="collapseOne">
+                            Batteries
+                        </a>
+                    </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse show" role="tabpanel" aria-labelledby="headingOne" >
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Battery Id</th>
+                                <th>Status</th>
+                                <th>Date of last Inspection</th>
+                                <th>Belongs to Building</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var battery in batt)
+                            {
+                                <tr>
+                                    <td class="filterable-cell">@battery.id</td>
+                                    <td class="filterable-cell">@battery.status</td>
+                                    <td class="filterable-cell">@battery.date_of_last_inspection</td>
+                                    <td class="filterable-cell">@battery.building_id</td>
+                                    <td><a href="@Url.Action("Intervention", "Home", new { battery_id = battery.id, building_id = battery.building_id })">Edit</a></td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+
+
+            @*Columsn*@
+            <div class="card">
+                <div class="card-header" role="tab" id="headingTwo">
+                    <h5 class="mb-0">
+                        <a data-toggle="collapse" href="#collapseTwo" role="button" aria-expanded="false" aria-controls="collapseTwo">
+                            Columns
+                        </a>
+                    </h5>
+                </div>
+
+                <div id="collapseTwo" class="collapse" role="tabpanel" aria-labelledby="headingTwo" data-target="#collapseTwo" >
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Column ID</th>
+                                <th>Status</th>
+                                <th>Building Type</th>
+                                <th>Belongs to Battery</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var column in col)
+                            {
+                                <tr>
+                                    <td class="filterable-cell">@column.id</td>
+                                    <td class="filterable-cell">@column.status</td>
+                                    <td class="filterable-cell">@column.column_type</td>
+                                    <td class="filterable-cell">@column.battery_id</td>
+                                </tr>
+                            }
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+
+            @*Elevators*@
+            <div class="card">
+                <div class="card-header" role="tab" id="headingThree">
+                    <h5 class="mb-0">
+                        <a data-toggle="collapse" href="#collapseThree" role="button" aria-expanded="false" aria-controls="collapseThree">
+                            Elevators
+                        </a>
+                    </h5>
+                </div>
+
+                <div id="collapseThree" class="collapse" role="tabpanel" aria-labelledby="headingThree" data-target="#collapseThree">
+
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Elevator Id</th>
+                                <th>Status</th>
+                                <th>Serial Number</th>
+                                <th>Model</th>
+                                <th>elevator type</th>
+                                <th>Belongs to Column</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var elevator in el)
+                            {
+                                <tr>
+                                    <td class="filterable-cell">@elevator.id</td>
+                                    <td class="filterable-cell">@elevator.status</td>
+                                    <td class="filterable-cell">@elevator.serial_number</td>
+                                    <td class="filterable-cell">@elevator.model</td>
+                                    <td class="filterable-cell">@elevator.elevator_type</td>
+                                    <td class="filterable-cell">@elevator.column_id</td>
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
