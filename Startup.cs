@@ -26,7 +26,7 @@ public class Startup
 
     public void ConfigureServices(IServiceCollection services)
     {
-        var connectionString = "server=localhost;user=root;password=Hakima_1990;database=Rocket_Elevators_Customer_Portal";
+        var connectionString = "server=codeboxx.cq6zrczewpu2.us-east-1.rds.amazonaws.com;user=codeboxx;password=Codeboxx1!;database=AbdelhakimAntarPortal";
 
         // Replace with your server version and type.
         // Use 'MariaDbServerVersion' for MariaDB.
